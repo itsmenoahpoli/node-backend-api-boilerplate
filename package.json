@@ -4,7 +4,10 @@
   "description": "noah backend nodejs api boilderplate",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && tsc-alias",
+    "start": "node ./dist/index.js",
+    "start:preview": "tsc && tsc-alias && node ./dist/index.js",
+    "dev": "nodemon"
   },
   "keywords": [
     "node",
@@ -30,6 +33,9 @@
     "@types/helmet": "^0.0.48",
     "@types/hpp": "^0.2.6",
     "@types/node": "^22.13.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0"
   }
 }
