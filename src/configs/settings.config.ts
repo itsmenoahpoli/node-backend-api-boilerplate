@@ -10,4 +10,9 @@ const APP_URL: string =
     ? `${process.env.APP_URL}:${APP_PORT}`
     : (process.env.APP_URL as string);
 
-export { APP_PORT, APP_ENV, APP_URL };
+
+const checkCurrentEnvironment = (environment: AppEnvironment) => {
+  return APP_ENV === environment;
+};
+
+export { checkCurrentEnvironment, APP_PORT, APP_ENV, APP_URL };
