@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": ".",
@@ -8,17 +7,13 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "strict": true,
+    "esModuleInterop": true,
     "noImplicitAny": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
-    "declarationDir": "./src/types"
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

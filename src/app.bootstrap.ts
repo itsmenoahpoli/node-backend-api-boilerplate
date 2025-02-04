@@ -1,6 +1,7 @@
 import express, { Application as ExpressApplication } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { initializeApiRoutes } from "@/routers";
 import { SETTINGS } from "@/configs";
 import { AppEnvironments } from "@/types";
 
@@ -12,6 +13,8 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cors());
 app.disable("powered-by");
+
+initializeApiRoutes(app);
 
 const runApp = (): void => {
   const appPort = SETTINGS.APP_PORT;
