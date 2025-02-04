@@ -1,7 +1,8 @@
-import express, { Application as ExpressApplication } from "express";
+import express, { type Application as ExpressApplication } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { initializeApiRoutes } from "@/routers";
+import { initializeMiddlewares, GlobalErrorHandlerMiddleware } from "@/middlewares";
 import { SETTINGS } from "@/configs";
 import { AppEnvironments } from "@/types";
 
@@ -14,7 +15,10 @@ app.use(express.json());
 app.use(cors());
 app.disable("powered-by");
 
+initializeMiddlewares(app);
 initializeApiRoutes(app);
+
+app.use(GlobalErrorHandlerMiddleware);
 
 const runApp = (): void => {
   const appPort = SETTINGS.APP_PORT;
