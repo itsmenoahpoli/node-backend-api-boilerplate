@@ -6,6 +6,15 @@ export enum AppEnvironments {
 
 export type AppEnvironment = "DEV" | "QA" | "PROD";
 
+export enum HttpErrorTypes {
+  VALIDATION_ERROR = "VALIDATION_ERROR",
+  UNAUTHORIZED_ERROR = "UNAUTHORIZED_ERROR",
+  FORBIDDEN_ERROR = "FORBIDDEN_ERROR",
+  SERVER_ERROR = "SERVER_ERROR",
+}
+
+export type HttpErrorType = "VALIDATION_ERROR" | "UNAUTHORIZED_ERROR" | "FORBIDDEN_ERROR" | "SERVER_ERROR";
+
 export enum HttpStatusCode {
   OK = 200,
   CREATED = 201,
