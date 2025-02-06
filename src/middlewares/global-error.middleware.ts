@@ -30,13 +30,10 @@ const getErrorData = (error: any) => {
 export const ErrorHandlerMiddleware = (error: any, request: Request, response: Response, next: NextFunction) => {
   const { errCode, errType, errMessage, errTrace } = getErrorData(error);
 
-  response
-    .status(errCode)
-    .json({
-      errCode,
-      errType,
-      errMessage,
-      errTrace,
-    })
-    .send();
+  response.status(errCode).json({
+    errCode,
+    errType,
+    errMessage,
+    ...(errTrace && { errTrace }),
+  });
 };

@@ -12,7 +12,9 @@ export const CheckApiKeyMiddleware = (error: any, request: Request, response: Re
         message: "API_KEY_MISSING",
       })
       .send();
-  } else {
-    next();
+
+    return;
   }
+
+  next();
 };
