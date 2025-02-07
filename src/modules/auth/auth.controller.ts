@@ -1,41 +1,39 @@
-import { type Request, type Response, type NextFunction } from "express";
-import { validateRequestBody, SendHttpResponse } from "@/utils";
+import { type Request, type Response, type NextFunction, RequestHandler } from "express";
+import { BaseController } from "@/modules/base.controller";
 import { AuthService } from "./auth.service";
 import { SigninCredentialsDTO, SigninCredentials, SignupDataDTO, SignupData } from "./auth.dto";
+import { ValidatePayload } from "@/decorators";
 import { HttpErrorTypes, HttpStatusCode } from "@/types";
 
-export const AuthController = {
-	async signinHandler(request: Request, response: Response, next: NextFunction) {
-		const validatePayload = await validateRequestBody(SigninCredentialsDTO, request.body);
+export class AuthController extends BaseController {
+	public authService: AuthService;
 
-		if (validatePayload.isError) {
-			next(validatePayload.errors);
-		}
+	constructor() {
+		super();
 
-		const result = await AuthService.signinAccount(request.body as SigninCredentials);
+		this.authService = new AuthService();
+		this.bindClassMethods(this);
+	}
+
+	@ValidatePayload(SigninCredentialsDTO)
+	public async signinHandler(request: Request, response: Response, next: NextFunction): Promise<any> {
+		const result = await this.authService.signinAccount(request.body as SigninCredentials);
 
 		if (!result) {
-			SendHttpResponse(response, HttpErrorTypes.UNAUTHORIZED_ERROR, HttpStatusCode.UNAUTHORIZED);
-			return;
+			return this.sendHttpResponse(response, HttpErrorTypes.UNAUTHORIZED_ERROR, HttpStatusCode.UNAUTHORIZED);
 		}
 
-		SendHttpResponse(response, result, HttpStatusCode.OK);
-	},
+		return this.sendHttpResponse(response, result, HttpStatusCode.OK);
+	}
 
-	async signupHandler(request: Request, response: Response, next: NextFunction) {
-		const validatePayload = await validateRequestBody(SignupDataDTO, request.body);
-
-		if (validatePayload.isError) {
-			return next(validatePayload.errors);
-		}
-
-		const result = await AuthService.signupAccount(request.body as SignupData);
+	@ValidatePayload(SignupDataDTO)
+	public async signupHandler(request: Request, response: Response, next: NextFunction): Promise<any> {
+		const result = await this.authService.signupAccount(request.body as SignupData);
 
 		if (result.accountExists) {
-			SendHttpResponse(response, HttpErrorTypes.ALREADY_EXISTS, HttpStatusCode.UNPROCESSABLE_ENTITY);
-			return;
+			return this.sendHttpResponse(response, HttpErrorTypes.ALREADY_EXISTS, HttpStatusCode.UNPROCESSABLE_ENTITY);
 		}
 
-		SendHttpResponse(response, result, HttpStatusCode.CREATED);
-	},
-};
+		return this.sendHttpResponse(response, result, HttpStatusCode.CREATED);
+	}
+}

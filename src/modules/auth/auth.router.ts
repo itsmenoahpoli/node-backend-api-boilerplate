@@ -1,4 +1,22 @@
 import { Router } from "express";
 import { AuthController } from "./auth.controller";
 
-export const AuthRouter = Router().post("/signin", AuthController.signinHandler).post("/signup", AuthController.signupHandler);
+export class AuthRouter {
+	private router: Router;
+	private authController: AuthController;
+
+	constructor() {
+		this.router = Router();
+		this.authController = new AuthController();
+
+		this.initializeRoutes();
+	}
+
+	get routerRoutes() {
+		return this.router;
+	}
+
+	private initializeRoutes() {
+		this.router.post("/signin", this.authController.signinHandler).post("/signup", this.authController.signupHandler);
+	}
+}

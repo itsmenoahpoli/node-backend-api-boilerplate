@@ -4,23 +4,24 @@ import { SigninCredentials, SignupData } from "./auth.dto";
 import { verifyPassword } from "@/utils";
 import { SETTINGS } from "@/configs";
 
-export const AuthService = {
-	async signinAccount(credentials: SigninCredentials) {
+export class AuthService {
+	public async signinAccount(credentials: SigninCredentials) {
 		const user = await UsersService.findByEmail(credentials.email);
-		const isPasswordVerified = user ? await verifyPassword(user?.password, credentials.password) : false;
+		const isPasswordVerified = user ? await verifyPassword(credentials.password, user?.password) : false;
 
 		if (!user || !isPasswordVerified) {
 			return null;
 		}
 
-		const authToken = JWT.sign({ userId: user.id, email: user.email }, SETTINGS.APP_JWT_SECRET_KEY, { expiresIn: "1h" });
+		delete (user as any).password;
+		const authToken = JWT.sign({ user }, SETTINGS.APP_JWT_SECRET_KEY, { expiresIn: "1h" });
 
 		return {
 			authToken,
 		};
-	},
+	}
 
-	async signupAccount(accountData: SignupData) {
+	public async signupAccount(accountData: SignupData) {
 		const user = await UsersService.findByEmail(accountData.email);
 
 		if (user) {
@@ -30,10 +31,11 @@ export const AuthService = {
 		}
 
 		const createUser = await UsersService.createUser({ ...accountData, isEnabled: true });
+		delete (createUser as any).password;
 
 		return {
 			accountExists: false,
 			user: createUser,
 		};
-	},
-};
+	}
+}
