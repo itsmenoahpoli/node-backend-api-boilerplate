@@ -11,6 +11,8 @@
     "noImplicitAny": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "@/*": ["src/*"]
     },

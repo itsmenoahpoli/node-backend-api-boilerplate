@@ -1,14 +1,15 @@
-import express, { type Application as ExpressApplication } from "express";
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { initializeApiRoutes } from "@/routers";
 import { initializeMiddlewares, GlobalErrorHandlerMiddleware } from "@/middlewares";
+import { initializeDatabase } from "@/database";
 import { SETTINGS } from "@/configs";
 import { AppEnvironments } from "@/types";
 
 dotenv.config();
 
-const app: ExpressApplication = express();
+const app = express();
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -17,6 +18,7 @@ app.disable("powered-by");
 
 initializeMiddlewares(app);
 initializeApiRoutes(app);
+initializeDatabase();
 
 app.use(GlobalErrorHandlerMiddleware);
 
