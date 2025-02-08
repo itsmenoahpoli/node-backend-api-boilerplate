@@ -14,6 +14,7 @@ const APP_DB_PORT: string = process.env.APP_DB_PORT as string;
 const APP_DB_USERNAME: string = process.env.APP_DB_USERNAME as string;
 const APP_DB_PASSWORD: string = process.env.APP_DB_PASSWORD as string;
 const APP_DB_DATABASE: string = process.env.APP_DB_DATABASE as string;
+const APP_SENTRY_DSN: string = process.env.APP_SENTRY_DSN as string;
 
 const checkCurrentEnvironment = (environment: AppEnvironment) => {
 	return APP_ENV === environment;
@@ -32,4 +33,5 @@ export {
 	APP_DB_USERNAME,
 	APP_DB_PASSWORD,
 	APP_DB_DATABASE,
+	APP_SENTRY_DSN,
 };
