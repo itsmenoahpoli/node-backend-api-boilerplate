@@ -1,6 +1,6 @@
 import JWT from "jsonwebtoken";
 import { UsersService } from "@/modules/users/users.service";
-import { SigninCredentials, SignupData } from "./auth.dto";
+import { RequestOtp, type SigninCredentials, type SignupData } from "./auth.dto";
 import { verifyPassword } from "@/utils";
 import { SETTINGS } from "@/configs";
 
@@ -37,5 +37,9 @@ export class AuthService {
 			accountExists: false,
 			user: createUser,
 		};
+	}
+
+	public async requestOtp(data: RequestOtp) {
+		//
 	}
 }

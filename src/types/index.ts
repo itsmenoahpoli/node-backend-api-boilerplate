@@ -10,6 +10,8 @@ export type AppEnvironment = "DEV" | "QA" | "PROD";
 
 export type DbConnectionTypes = "postgres" | "mysql";
 
+export type RequestOtpType = "verify-email" | "reset-password";
+
 export enum HttpErrorTypes {
 	ALREADY_EXISTS = "ALREADY_EXISTS",
 	VALIDATION_ERROR = "VALIDATION_ERROR",

@@ -1,7 +1,7 @@
-import { type Request, type Response, type NextFunction, RequestHandler } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 import { BaseController } from "@/modules/base.controller";
 import { AuthService } from "./auth.service";
-import { SigninCredentialsDTO, SigninCredentials, SignupDataDTO, SignupData } from "./auth.dto";
+import { SigninCredentialsDTO, SigninCredentials, SignupDataDTO, SignupData, RequestOtpDTO, RequestOtp } from "./auth.dto";
 import { ValidatePayload } from "@/decorators";
 import { HttpErrorTypes, HttpStatusCode } from "@/types";
 
