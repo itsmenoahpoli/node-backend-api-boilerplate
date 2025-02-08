@@ -1,6 +1,5 @@
 import { DataSource, Repository, type DataSourceOptions } from "typeorm";
-import { BaseRepository } from "./repositories";
-import { User } from "./entities";
+import { User as UserEntity, UserRole as UserRoleEntity } from "./entities";
 import { SETTINGS } from "@/configs";
 
 const DBDataSource = new DataSource({
@@ -17,7 +16,8 @@ const DBDataSource = new DataSource({
 	subscribers: [],
 } as DataSourceOptions);
 
-let userRepository: Repository<User>;
+let usersRepository: Repository<UserEntity>;
+let userRolesRepository: Repository<UserRoleEntity>;
 
 const initializeDatabase = () => {
 	DBDataSource.initialize()
@@ -25,7 +25,8 @@ const initializeDatabase = () => {
 			console.info("Database successfully sycned!");
 
 			// Set repositories
-			userRepository = DBDataSource.getRepository(User);
+			usersRepository = DBDataSource.getRepository(UserEntity);
+			userRolesRepository = DBDataSource.getRepository(UserRoleEntity);
 		})
 		.catch((error) => {
 			console.error("Failed to sync database");
@@ -33,4 +34,4 @@ const initializeDatabase = () => {
 		});
 };
 
-export { DBDataSource, initializeDatabase, BaseRepository, userRepository, User as UserEntity };
+export { DBDataSource, initializeDatabase, usersRepository, UserEntity, userRolesRepository, UserRoleEntity };

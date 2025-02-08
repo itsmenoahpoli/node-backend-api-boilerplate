@@ -5,8 +5,14 @@ import { verifyPassword } from "@/utils";
 import { SETTINGS } from "@/configs";
 
 export class AuthService {
+	public usersService: UsersService;
+
+	constructor() {
+		this.usersService = new UsersService();
+	}
+
 	public async signinAccount(credentials: SigninCredentials) {
-		const user = await UsersService.findByEmail(credentials.email);
+		const user = await this.usersService.findByEmail(credentials.email);
 		const isPasswordVerified = user ? await verifyPassword(credentials.password, user?.password) : false;
 
 		if (!user || !isPasswordVerified) {
@@ -22,7 +28,7 @@ export class AuthService {
 	}
 
 	public async signupAccount(accountData: SignupData) {
-		const user = await UsersService.findByEmail(accountData.email);
+		const user = await this.usersService.findByEmail(accountData.email);
 
 		if (user) {
 			return {
@@ -30,7 +36,7 @@ export class AuthService {
 			};
 		}
 
-		const createUser = await UsersService.createUser({ ...accountData, isEnabled: true });
+		const createUser = await this.usersService.createUser({ ...accountData, isEnabled: true });
 		delete (createUser as any).password;
 
 		return {
