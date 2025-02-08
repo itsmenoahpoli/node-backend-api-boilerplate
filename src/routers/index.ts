@@ -1,5 +1,5 @@
 import { Application } from "express";
-import { SystemRouter, AuthRouter } from "./module-routers";
+import { SystemRouter, AuthRouter, UserRolesRouter } from "./module-routers";
 import { SETTINGS } from "@/configs";
 import { AppEnvironments } from "@/types";
 
@@ -11,6 +11,10 @@ const routesConfig = [
 	{
 		uri: "/auth",
 		router: new AuthRouter().routerRoutes,
+	},
+	{
+		uri: "/user-roles",
+		router: new UserRolesRouter().routerRoutes,
 	},
 ];
 
