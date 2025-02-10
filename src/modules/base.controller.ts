@@ -1,5 +1,5 @@
 import { type Response } from "express";
-import { HttpStatusCode } from "@/types";
+import { HttpStatusCode, ListFilterKeys } from "@/types";
 
 export class BaseController {
 	protected sendHttpResponse<T = any>(response: Response, data: T | null = null, statusCode: number = HttpStatusCode.OK) {
@@ -12,5 +12,13 @@ export class BaseController {
 			.forEach((key) => {
 				instance[key] = instance[key].bind(instance);
 			});
+	}
+
+	protected generateListFilters(query: ListFilterKeys) {
+		const filters = {
+			withDeleted: Boolean(query.withDeleted === "true"),
+		};
+
+		return filters;
 	}
 }

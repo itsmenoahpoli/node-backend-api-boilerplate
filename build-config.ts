@@ -5,8 +5,8 @@ const baseUrl = tsConfig.compilerOptions.baseUrl;
 const paths = tsConfig.compilerOptions.paths;
 
 tsConfigPaths.register({
-  baseUrl,
-  paths,
+	baseUrl,
+	paths,
 });
 
 require("./dist/index");

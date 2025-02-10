@@ -12,6 +12,10 @@ export type DbConnectionTypes = "postgres" | "mysql";
 
 export type RequestOtpType = "verify-email" | "reset-password";
 
+export type ListFilterKeys = {
+	withDeleted: "true" | "false" | boolean;
+};
+
 export enum HttpErrorTypes {
 	ALREADY_EXISTS = "ALREADY_EXISTS",
 	VALIDATION_ERROR = "VALIDATION_ERROR",

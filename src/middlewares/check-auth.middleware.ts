@@ -14,7 +14,7 @@ export const CheckAuthMiddleware = (request: Request, response: Response, next: 
 			{
 				message: HttpErrorTypes.UNAUTHORIZED_ERROR,
 			},
-			HttpStatusCode.UNAUTHORIZED
+			HttpStatusCode.UNAUTHORIZED,
 		);
 
 		return;

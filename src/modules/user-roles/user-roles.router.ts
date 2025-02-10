@@ -17,10 +17,10 @@ export class UserRolesRouter {
 	}
 
 	private initializeRoutes() {
-		this.router.post("/", this.userRolesController.fetchListHandler);
-		this.router.post("/:id", this.userRolesController.fetchListHandler);
-		this.router.post("/:id", this.userRolesController.fetchListHandler);
-		this.router.post("/:id", this.userRolesController.fetchListHandler);
-		this.router.post("/", this.userRolesController.fetchListHandler);
+		this.router.get("/", this.userRolesController.fetchListHandler);
+		this.router.get("/:id", this.userRolesController.fetchByIdHandler);
+		this.router.patch("/:id", this.userRolesController.updateByIdHandler);
+		this.router.delete("/:id", this.userRolesController.deleteByIdHandler);
+		this.router.post("/", this.userRolesController.createHandler);
 	}
 }

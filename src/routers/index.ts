@@ -18,21 +18,21 @@ const routesConfig = [
 	},
 ];
 
-// const printRouteRoutes = (route: any) => {
-//   const uriModule = route.uri.replace("/", "").toUpperCase();
-//   console.log("--------------------------------------------------------------------------------------");
-//   console.log(`${uriModule} Routes \n---------------`);
+const printRouteRoutes = (route: any) => {
+	const uriModule = route.uri.replace("/", "").toUpperCase();
+	console.log("--------------------------------------------------------------------------------------");
+	console.log(`${uriModule} ${route.uri} Routes \n---------------`);
 
-//   route.router.stack.forEach((stack: any) => {
-//     if (stack.route) {
-//       // @ts-ignore
-//       const methods = Object.keys(stack.route?.methods).join(", ").toUpperCase();
+	route.router.stack.forEach((stack: any) => {
+		if (stack.route) {
+			// @ts-ignore
+			const methods = Object.keys(stack.route?.methods).join(", ").toUpperCase();
 
-//       console.log(`${methods} ${stack.route.path}`);
-//     }
-//   });
-//   console.log("--------------------------------------------------------------------------------------");
-// };
+			console.log(`${methods} ${route.uri}${stack.route.path}`);
+		}
+	});
+	console.log("--------------------------------------------------------------------------------------");
+};
 
 export const initializeApiRoutes = (app: Application, apiPrefix: string = "/api") => {
 	routesConfig.forEach((route) => {
@@ -41,7 +41,7 @@ export const initializeApiRoutes = (app: Application, apiPrefix: string = "/api"
 		app.use(uri, route.router);
 
 		if (SETTINGS.checkCurrentEnvironment(AppEnvironments.DEV)) {
-			// printRouteRoutes(route);
+			printRouteRoutes(route);
 		}
 	});
 };
